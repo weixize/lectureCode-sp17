@@ -2,32 +2,52 @@
  *  @author Josh Hug
  */
 
-public class AList {
+public class AList<Item> {
     /** Creates an empty list. */
+    private Item[] container;
+    private int size;
+
     public AList() {
+        container = (Item[]) new Object[100];
+        size = 0;
+    }
+
+    private void resize(int capacity) {
+        Item[] a = (Item[]) new Object[capacity];
+        System.arraycopy(container, 0, a, 0, size);
+        container = a;
     }
 
     /** Inserts X into the back of the list. */
-    public void addLast(int x) {
+    public void addLast(Item x) {
+        if (size == container.length) {
+            resize(size * 2);
+        }
+
+        container[size] = x;
+        size += 1;
     }
 
     /** Returns the item from the back of the list. */
-    public int getLast() {
-        return 0;        
+    public Item getLast() {
+        return container[size - 1];
     }
     /** Gets the ith item in the list (0 is the front). */
-    public int get(int i) {
-        return 0;        
+    public Item get(int i) {
+        return container[i];
     }
 
     /** Returns the number of items in the list. */
     public int size() {
-        return 0;        
+        return size;
     }
 
     /** Deletes item from back of the list and
       * returns deleted item. */
-    public int removeLast() {
-        return 0;
+    public Item removeLast() {
+        Item x = getLast();
+        container[size - 1] = null;
+        size -= 1;
+        return x;
     }
 } 
