@@ -12,16 +12,16 @@ public class AList<Item> {
         size = 0;
     }
 
-    private void resize(int capacity) {
+    private void resize(int capacity, int start) {
         Item[] a = (Item[]) new Object[capacity];
-        System.arraycopy(container, 0, a, 0, size);
+        System.arraycopy(container, 0, a, start, size);
         container = a;
     }
 
     /** Inserts X into the back of the list. */
     public void addLast(Item x) {
         if (size == container.length) {
-            resize(size * 2);
+            resize(size * 2, 0);
         }
 
         container[size] = x;
@@ -49,5 +49,11 @@ public class AList<Item> {
         container[size - 1] = null;
         size -= 1;
         return x;
+    }
+
+    public void addFirst(Item x) {
+        resize(size + 1, 1);
+        container[0] = x;
+        size += 1;
     }
 } 
